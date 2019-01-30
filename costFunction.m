@@ -1,0 +1,2 @@
+function [J theta] = costFunction(X, y, theta, alpha, iterations)    costHistory = zeros(iterations,2);    for i=1:iterations  m = size(X,1);  pred = sigmoid(X, theta);   gradDescend = X'*(pred - y);    theta = theta - (alpha/m)*gradDescend;  J = (-1/m)*sum((y.*log(pred) + (1-y).*log(1-pred))(:));  costHistory(i,:) = [i J];  endfor    plot(costHistory(:, 1), costHistory(:, 2), 'ro');  xlabel('No. of iterations'); ylabel('Cost');  title('Cost function');    fprintf('Review plot and press enter to continue.\n\n');  pause;    
+endfunction
