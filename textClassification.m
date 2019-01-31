@@ -1,25 +1,29 @@
 close all; clear; clc;
 
-[X vocabList m n] = generateFeatureMatrix("X.txt", "vocab.txt");
-[y map] = generateOutputVector("y.txt");
-theta = zeros(n, 1);
+[X vocabList m n] = generateFeatureMatrix("test-X.txt", "test-vocab.txt");
+[map yMultiClass] = generateOutputVector("test-y.txt");
+k = size(yMultiClass, 2);
+allTheta = zeros(n, k);
+alpha = 1;
+iterations = 500;
+costHistory = zeros(iterations, k+1);
+costHistory(:, 1) = 1:1:iterations;
 
+  for i = 1: k
+    [cost costHistory(:, i+1) allTheta(:, i)] = costFunction(X, yMultiClass(:, i), allTheta(:, i), alpha, iterations);
+    hold on;
+    subplot(1, k, i) = plot(costHistory(:,1), costHistory(:,i+1), '.', 'markersize', 10);   
+  endfor;
+  title('Cost Function'); xlabel('No. of iterations'); ylabel('Cost'); legend(map);
 
-% gradient descend
-alpha = 0.3;
-iterations = 5000;
-[J theta] = costFunction(X, y, theta, alpha, iterations);
+fprintf('Review plot and press enter to continue.\n\n');
+pause;
 
+fprintf('Cost is %f\nTheta is\n', cost);
+allTheta
 
-% gradient descend using fminunc
-%options = optimset('GradObj', 'on', 'MaxIter', 400);
-%[J theta] = fminunc(@(t)(costFunctionFMINUNC(t, X, y)), theta, options);
-
-fprintf('Cost is %f\nTheta is\n', J);
-fprintf('%f\n', theta);
-
-text = "hello there";
-predict(text, theta, vocabList, map);
+text = "good night";
+predict(text, allTheta, vocabList, map);
 
 fprintf('\n******************************************************************************************************\n')
 
