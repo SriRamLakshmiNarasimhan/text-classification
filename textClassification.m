@@ -29,5 +29,3 @@ fprintf('Beginning prediction for provided text "%s"...\n\n', text);
 predict(text, allTheta, vocabList, map);
 fprintf('To continue prediction, execute predict("input text", allTheta, vocabList, map) in command line.\n')
 fprintf('\n******************************************************************************************************\n');
-
-
