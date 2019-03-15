@@ -1,4 +1,6 @@
 close all; clear; clc;
+fprintf('\n******************************************************************************************************\n');
+fprintf('Beginning text classification...\n\n');
 
 [X vocabList m n] = generateFeatureMatrix("test-X.txt", "test-vocab.txt");
 [map yMultiClass] = generateOutputVector("test-y.txt");
@@ -22,9 +24,10 @@ pause;
 fprintf('Cost is %f\nTheta is\n', cost);
 allTheta
 
-text = "good night";
+text = "good evening";
+fprintf('Beginning prediction for provided text "%s"...\n\n', text);
 predict(text, allTheta, vocabList, map);
-
-fprintf('\n******************************************************************************************************\n')
+fprintf('To continue prediction, execute predict("input text", allTheta, vocabList, map) in command line.\n')
+fprintf('\n******************************************************************************************************\n');
 
 
